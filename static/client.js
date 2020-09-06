@@ -39,8 +39,8 @@ setTimeout(function(){progressDiv.style.display = 'none'}, 5000)
 
 
 //Setting up socket connection
-//var socket = io({'sync disconnect on unload': true, transports:['websocket','polling']})
-var socket = io()
+var socket = io({'sync disconnect on unload': true, transports:['websocket','polling']})
+//var socket = io()
 
 function peerConnection()
 {
