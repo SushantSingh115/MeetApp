@@ -136,11 +136,11 @@ video:{height:300,width:400}}
 
 navigator.mediaDevices.getUserMedia(mediaConstraints)
 .then((stream)=>{localVideo.srcObject = stream
-setTimeout(function(){progressBar.style.width = '100%'; progressBar.innerText='Getting things ready for you'},500)
+setTimeout(function(){progressBar.style.width = '100%'; progressBar.innerText='Getting things ready for you'},1000)
 setTimeout(function(){
 progressDiv.style.display = 'none'
 if(document.getElementById("#joinMeeting"))
-    {document.getElementById("#joinMeeting").style.display = 'none'}
+    {document.getElementById("#joinMeeting").style.display = 'block'}
 }, 5000)
 })
 .catch((error)=>{console.log(error)})
