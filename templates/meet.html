@@ -136,8 +136,12 @@ video:{height:300,width:400}}
 
 navigator.mediaDevices.getUserMedia(mediaConstraints)
 .then((stream)=>{localVideo.srcObject = stream
-setTimeout(function(){progressBar.style.width = '100%'; progressBar.innerText='100%'},500)
-setTimeout(function(){progressDiv.style.display = 'none'}, 5000)
+setTimeout(function(){progressBar.style.width = '100%'; progressBar.innerText='Getting things ready for you'},500)
+setTimeout(function(){
+progressDiv.style.display = 'none'
+if(document.getElementById("#joinMeeting"))
+    {document.getElementById("#joinMeeting").style.display = 'none'}
+}, 5000)
 })
 .catch((error)=>{console.log(error)})
 
@@ -270,6 +274,7 @@ sendMessageButton.onclick = (ev)=> {
         button = document.createElement("button")
         button.id = 'joinMeeting'
         button.class = 'btn btn-lg btn-info'
+	button.style.display = 'none'
         button.onclick = function(evt){
         socket.emit("enterMeeting",{'meetingId':meetingId})
         button.remove()
