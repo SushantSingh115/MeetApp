@@ -5,7 +5,9 @@ import initialize
 sio = socketio.Server()
 app = socketio.WSGIApp(sio, static_files={
     '/': {'content_type': 'text/html', 'filename': 'templates/index.html'},
-    '/meet/': {'content_type': 'text/html', 'filename': 'templates/meet.html'}
+    '/meet/': {'content_type': 'text/html', 'filename': 'templates/meet.html'},
+    '/static/client.js': {'content_type': 'text/javascript', 'filename': 'static/client.js'},
+    '/static/index.js': {'content_type': 'text/javascript', 'filename': 'static/index.js'},
 })
 
 # Method to Generate Participant
