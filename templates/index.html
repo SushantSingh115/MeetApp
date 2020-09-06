@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>We Meet</title>
+  </head>
+  <body class="text-center">
+      <div class="container container bg-faded py-3">
+          <div class="col-md-12">
+        <h1 class="cover-heading">We Meet</h1>
+        <p class="lead">Generate & Share Meeting Link to Connect</p>
+          <div class="mx-auto w-50 p-3 bg-dark text-white text-center">
+              <div class="p-2"><a href="#" id = "generateLink" class="btn btn-lg btn-info">Generate Meeting</a></div>
+             <!-- <div class="p-2"><p class="lead"> or </p></div>
+              <div class="p-2"> <input type="text" class="form-control" placeholder="Enter Meeting Id or Url">
+              </div><div class="p-2"><a href="#" id = "joinMeeting" class="btn btn-lg btn-info">Join</a></div>
+          -->
+          </div>
+          </div>
+      </div>
+    </div>
+      </main>
+    </div>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+        </div>
+      </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+    <!--<script src="/static/index.js"></script>-->
+  <script>
+    var socket = io({'sync disconnect on unload': true, transports:['websocket']})
+    var generateMeetingButton = document.querySelector("#generateLink")
+    generateMeetingButton.onclick = function(event){
+    socket.emit("generateMeeting")}
+
+socket.on("meetingCreated", function(msg){
+    console.log("Meeting Created")
+    var meetURl = location.protocol+'//'+location.host+'/meet/?meetingid='+msg.meetingId
+    if (document.querySelector("#meetURL")){
+       document.querySelector("#meetURL").innerText = meetURl
+    }
+    else{
+    var p = document.createElement('p')
+    var text = document.createTextNode(meetURl)
+    p.class = "lead"
+    p.appendChild(text)
+    p.id ="meetURL"
+    generateMeetingButton.parentNode.appendChild(p)}
+    if(!document.querySelector("#copyButton")){
+        copyButton = document.createElement('button')
+        copyButton.id = 'copyButton'
+        copyButton.class = 'btn-sm btn-primary'
+        generateMeetingButton.parentNode.appendChild(copyButton)
+        copyButton.innerText = 'Copy'
+        copyButton.onclick = function(evt){
+            var range = document.createRange();
+            var selection = window.getSelection();
+            range.selectNodeContents(document.getElementById('meetURL'));
+            selection.removeAllRanges()
+            selection.addRange(range)
+            document.execCommand("copy")}}})
+  </script>
+  </body>
+</html>
