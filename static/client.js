@@ -44,8 +44,7 @@ var socket = io({'sync disconnect on unload': true, transports:['websocket','pol
 
 function peerConnection()
 {
-    //Creating RTCPeerConnectionObject
-    const configuration = 
+    //Creating RTCPeerConnectionObject 
     const configuration = {'iceServers': [
         {'urls': 'stun:stun.l.google.com:19302'},
         {
