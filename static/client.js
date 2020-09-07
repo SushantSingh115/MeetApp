@@ -45,11 +45,14 @@ var socket = io({'sync disconnect on unload': true, transports:['websocket','pol
 function peerConnection()
 {
     //Creating RTCPeerConnectionObject
-    const configuration = { iceServers: [{
-                          urls: "turn:asia.myturnserver.net",
-                          username: "allie@oopcode.com",
-                          credential: "topsecretpassword"
-                      }]};
+    const configuration = 
+    const configuration = {'iceServers': [
+        {'urls': 'stun:stun.l.google.com:19302'},
+        {
+        'urls': ["turns:turnserver.example.org", "turn:turnserver.example.org"],
+        'username': "webrtc",
+        'credential': "turnpassword"
+      }]}
 
     connectionobject = new RTCPeerConnection(configuration)
     dataChannel = connectionobject.createDataChannel("dataChannel")
