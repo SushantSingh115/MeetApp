@@ -36,7 +36,7 @@ setTimeout(function(){progressDiv.style.display = 'none'}, 5000)
 })
 .catch((error)=>{console.log(error)})
 
-
+//Join Now Disable
 
 //Setting up socket connection
 var socket = io({'sync disconnect on unload': true, transports:['websocket','polling']})
